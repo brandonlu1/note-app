@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react';
 
-export default function card(){
+export default function card(props){
     return(
         <div>
-            this is a card
-
+            {props.note}
+            <button onClick={() => {console.log("clicked!")}}>click me</button>
         </div>
     )
 }

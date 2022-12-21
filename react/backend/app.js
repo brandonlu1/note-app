@@ -11,15 +11,24 @@ const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: 
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    console.log("landing page")
     client.connect(async err => {
-        const collection = client.db("notes-app").collection("notes");
         if (err){
-            res.send("error: ", err)
+            res.send("Unable to connect to MongoDB")
         }
         else{
             res.send("Connected to MongoDB")
         }
+    })
+})
+
+app.get('/get-notes', async (req, res) => {
+    client.connect(async err => {
+        const collection = client.db("notes-app").collection("notes");
+        const notes = await collection.find({}).toArray();
+        console.log("notes: ", notes)
+        res.send(notes)
     })
 })
 
