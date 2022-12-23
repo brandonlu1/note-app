@@ -6,9 +6,9 @@ h1{
 .page--container{
   display:flex;
   flex-direction:column;
-  justify-content: center;
   align-items: center;
-  min-height:100vh;
+  padding-top: 15vh;
+  min-height:85vh;
   width:100vw;
   background-color: #F4FFF8;
 }

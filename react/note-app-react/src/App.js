@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import Card from './Components/BlogCard'
 import InputCard from './Components/InputCard.js'
 import './App.css'
-function App() {
+function App(props) {
 
   const [notes, setNotes] = useState([])
 
@@ -17,12 +17,25 @@ function App() {
     .catch((error)=>{console.log("error: ", error)})
   })
 
+  const deleteNote = (note) => {
+    fetch('http://localhost:5000/delete-note', {
+        method:"PUT",
+        headers:{"Content-Type":"application/json",},
+        body: JSON.stringify({note})
+    })
+    .then((res)=>{
+        //window.location.reload()
+        console.log("deleted")
+    })
+      .catch((error)=>{console.log("could not upload note: ", error)})
+  }
+
   return (
     <div className="page--container">
       <h1>Post-It Board</h1>
       <div className="note--board">
         <InputCard/>
-        {notes.map((note) => <Card key={note._id} note={note.note}/>)}
+        {notes.map((note) => <Card key={note._id} note={note.note} onDelete={()=>deleteNote(note.note)}/>)}
       </div>
     </div>
   );

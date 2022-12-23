@@ -14,12 +14,13 @@ export default function InputCard(){
           })
           .then((res)=>{
             if (res.ok){
+              console.log("created new note")
               //setNotes(notes.push(note))
             }
           })
           .catch((error)=>{console.log("could not upload note: ", error)})
         }
-      }
+    }
 
     return(<div className="blog--card">
         <form onSubmit={handleSubmit}>

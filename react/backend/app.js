@@ -47,14 +47,13 @@ app.post('/upload-note', async (req, res) => {
 })
 
 app.put('/delete-note', async (req, res) => {
+    console.log("deleting")
     const {note:noteDB} = req.body;
-    let newNote = {
-        note:noteDB,
-    }
     client.connect(async err => {
         const collection = client.db("notes-app").collection("notes")
         collection.findOneAndDelete({note:noteDB})
-            res.sendStatus(200)
+        res.sendStatus(200)
+        console.log("success")
     })
 
 })
