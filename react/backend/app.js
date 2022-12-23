@@ -27,12 +27,38 @@ app.get('/get-notes', async (req, res) => {
     client.connect(async err => {
         const collection = client.db("notes-app").collection("notes");
         const notes = await collection.find({}).toArray();
-        console.log("notes: ", notes)
         res.send(notes)
     })
 })
 
+app.post('/upload-note', async (req, res) => {
+    const {note:noteDB} = req.body;
+    let newNote = {
+        note:noteDB,
+    }
+    client.connect(async err => {
+        const collection = client.db("notes-app").collection("notes");
+        if (noteDB.length > 0){
+            collection.insertOne(newNote)
+            res.sendStatus(200)
+        }
+    
+    })
+})
 
+app.put('/delete-note', async (req, res) => {
+    const {note:noteDB} = req.body;
+    let newNote = {
+        note:noteDB,
+    }
+    client.connect(async err => {
+        const collection = client.db("notes-app").collection("notes")
+        collection.findOneAndDelete({note:noteDB})
+            res.sendStatus(200)
+    })
+
+})
+//sss
 app.listen(port, ()=> {
         console.log(`App listening at http://localhost:${port}`)
 })
