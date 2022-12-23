@@ -1,5 +1,4 @@
 import './Blog.css'
-import {useState, useEffect} from 'react';
 
 export default function card(props){
     const deleteNote = () => {
